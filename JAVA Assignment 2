@@ -1,1 +1,61 @@
+import java.util.Scanner;
+
+class Student {
+    static int totalStudents = 0;
+    static final String COURSE = "Computer Science 101";
+
+    String name;
+    int id;
+    double marks;
+    char grade;
+
+    Student() {
+        name = "Unknown";
+        id = 0;
+        marks = 0;
+        grade = 'N';
+        totalStudents++;
+    }
+
+    Student(String name, int id, double marks) {
+        this.name = name;
+        this.id = id;
+        this.marks = marks;
+        grade = calcGrade(marks);
+        totalStudents++;
+    }
+
+    char calcGrade(double m) {
+        if (m >= 90) return 'A';
+        if (m >= 80) return 'B';
+        if (m >= 70) return 'C';
+        if (m >= 60) return 'D';
+        return 'F';
+    }
+
+    void display() {
+        System.out.println(COURSE);
+        System.out.println(name + " " + id + " " + marks + " " + grade);
+    }
+}
+
+public class StudentManager {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        Student[] s = new Student[n];
+        for (int i = 0; i < n; i++) {
+            String name = sc.nextLine();
+            int id = sc.nextInt();
+            double marks = sc.nextDouble();
+            sc.nextLine();
+            s[i] = new Student(name, id, marks);
+        }
+        for (Student x : s)
+            x.display();
+        System.out.println(Student.totalStudents);
+        sc.close();
+    }
+}
 
