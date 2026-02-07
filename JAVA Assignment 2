@@ -1,61 +1,66 @@
 import java.util.Scanner;
 
 class Student {
-    static int totalStudents = 0;
-    static final String COURSE = "Computer Science 101";
+
+    final String COURSE_NAME = "Data Structures";
+    static int studentCount = 0;
 
     String name;
     int id;
-    double marks;
+    int marks;
     char grade;
 
     Student() {
-        name = "Unknown";
+        name = "Not Assigned";
         id = 0;
         marks = 0;
-        grade = 'N';
-        totalStudents++;
+        grade = 'F';
+        studentCount++;
     }
 
-    Student(String name, int id, double marks) {
+    Student(String name, int id, int marks) {
         this.name = name;
         this.id = id;
         this.marks = marks;
-        grade = calcGrade(marks);
-        totalStudents++;
+        calculateGrade();
+        studentCount++;
     }
 
-    char calcGrade(double m) {
-        if (m >= 90) return 'A';
-        if (m >= 80) return 'B';
-        if (m >= 70) return 'C';
-        if (m >= 60) return 'D';
-        return 'F';
+    void calculateGrade() {
+        if (marks >= 90)
+            grade = 'A';
+        else if (marks >= 75)
+            grade = 'B';
+        else if (marks >= 60)
+            grade = 'C';
+        else if (marks >= 40)
+            grade = 'D';
+        else
+            grade = 'F';
     }
 
-    void display() {
-        System.out.println(COURSE);
-        System.out.println(name + " " + id + " " + marks + " " + grade);
+    void displayDetails() {
+        System.out.println("\nCourse Name : " + COURSE_NAME);
+        System.out.println("Student Name : " + name);
+        System.out.println("Student ID   : " + id);
+        System.out.println("Marks        : " + marks);
+        System.out.println("Grade        : " + grade);
     }
 }
 
-public class StudentManager {
+public class StudentPerformanceApp {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        sc.nextLine();
-        Student[] s = new Student[n];
-        for (int i = 0; i < n; i++) {
-            String name = sc.nextLine();
-            int id = sc.nextInt();
-            double marks = sc.nextDouble();
-            sc.nextLine();
-            s[i] = new Student(name, id, marks);
-        }
-        for (Student x : s)
-            x.display();
-        System.out.println(Student.totalStudents);
+        System.out.print("Enter Student Name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter Student ID: ");
+        int id = sc.nextInt();
+        System.out.print("Enter Marks: ");
+        int marks = sc.nextInt();
+        Student s1 = new Student(name, id, marks);
+        s1.displayDetails();
+        System.out.println("\nTotal Students Created: " + Student.studentCount);
         sc.close();
     }
 }
-
