@@ -1,66 +1,92 @@
 import java.util.Scanner;
 
-class Student {
-
-    final String COURSE_NAME = "Data Structures";
-    static int studentCount = 0;
-
+class Student
+{
     String name;
     int id;
     int marks;
     char grade;
 
-    Student() {
-        name = "Not Assigned";
+    static int count = 0;
+    final String course = "Java Programming";
+
+    Student()
+    {
+        name = "Not Set";
         id = 0;
         marks = 0;
-        grade = 'F';
-        studentCount++;
+        grade = 'N';
+        count++;
     }
 
-    Student(String name, int id, int marks) {
-        this.name = name;
-        this.id = id;
-        this.marks = marks;
-        calculateGrade();
-        studentCount++;
-    }
+    Student(String n, int i, int m)
+    {
+        name = n;
+        id = i;
+        marks = m;
 
-    void calculateGrade() {
-        if (marks >= 90)
+        if(marks >= 75)
             grade = 'A';
-        else if (marks >= 75)
+        else if(marks >= 60)
             grade = 'B';
-        else if (marks >= 60)
+        else if(marks >= 40)
             grade = 'C';
-        else if (marks >= 40)
-            grade = 'D';
         else
             grade = 'F';
+
+        count++;
     }
 
-    void displayDetails() {
-        System.out.println("\nCourse Name : " + COURSE_NAME);
-        System.out.println("Student Name : " + name);
-        System.out.println("Student ID   : " + id);
-        System.out.println("Marks        : " + marks);
-        System.out.println("Grade        : " + grade);
+    void display()
+    {
+        System.out.println("Course : " + course);
+        System.out.println("Name   : " + name);
+        System.out.println("ID     : " + id);
+        System.out.println("Marks  : " + marks);
+        System.out.println("Grade  : " + grade);
     }
 }
 
-public class StudentPerformanceApp {
-
-    public static void main(String[] args) {
+class Main
+{
+    public static void main(String args[])
+    {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter Student Name: ");
-        String name = sc.nextLine();
-        System.out.print("Enter Student ID: ");
-        int id = sc.nextInt();
-        System.out.print("Enter Marks: ");
-        int marks = sc.nextInt();
-        Student s1 = new Student(name, id, marks);
-        s1.displayDetails();
-        System.out.println("\nTotal Students Created: " + Student.studentCount);
-        sc.close();
+        Student s = null;
+
+        int ch;
+        do
+        {
+            System.out.println("\n1.Add Student");
+            System.out.println("2.Display Student");
+            System.out.println("3.Total Students");
+            System.out.println("4.Exit");
+            ch = sc.nextInt();
+
+            if(ch == 1)
+            {
+                System.out.print("Enter Name: ");
+                sc.nextLine();
+                String name = sc.nextLine();
+                System.out.print("Enter ID: ");
+                int id = sc.nextInt();
+                System.out.print("Enter Marks: ");
+                int marks = sc.nextInt();
+
+                s = new Student(name, id, marks);
+            }
+            else if(ch == 2)
+            {
+                if(s != null)
+                    s.display();
+                else
+                    System.out.println("No student record");
+            }
+            else if(ch == 3)
+            {
+                System.out.println("Total Students : " + Student.count);
+            }
+
+        } while(ch != 4);
     }
 }
